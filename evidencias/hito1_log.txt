@@ -1,0 +1,6 @@
+Run npm test
+  
+> legacy-billing@1.0.0 test
+> node Test/app.test.js
+=== Ejecutando Pruebas Unitarias de Facturación ===
+✅ PASSED: El cálculo del impuesto de la factura es correcto.

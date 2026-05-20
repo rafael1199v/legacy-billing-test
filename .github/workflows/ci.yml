@@ -1,0 +1,40 @@
+name: CI Pipeline - Hito 1
+
+# Se ejecuta automáticamente al hacer push o un Pull Request hacia la rama 'develop'
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build-and-test:
+    name: Build, Test y Generar Artefacto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar pruebas nativas
+        run: npm test
+
+      - name: Generar artefacto (Zip)
+        run: zip -r build-artifact.zip . -x "*.git*"
+
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: build-artifact.zip
+          retention-days: 5

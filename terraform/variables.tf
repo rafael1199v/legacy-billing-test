@@ -19,7 +19,7 @@ variable "ami_id" {
 variable "instance_type" {
   description = "Tipo de instancia"
   type        = string
-  default     = "t2.micro" 
+  default     = "t3.micro" 
 }
 
 variable "iam_profile" {

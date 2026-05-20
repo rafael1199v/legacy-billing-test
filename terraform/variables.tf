@@ -27,3 +27,9 @@ variable "iam_profile" {
   type        = string
   default     = "LabInstanceProfile" 
 }
+
+variable "allowed_ip" {
+  description = "IP local autorizada para el Security Group"
+  type        = string
+  default     = "190.104.20.154/32"
+}

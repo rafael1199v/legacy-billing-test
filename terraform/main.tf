@@ -1,6 +1,7 @@
 module "network" {
   source   = "./modules/network"
   app_port = var.app_port
+  allowed_ip = var.allowed_ip
 }
 
 module "compute" {
@@ -12,13 +13,20 @@ module "compute" {
   
   user_data = <<-EOF
     #!/bin/bash
-    # Actualizar sistema
     dnf update -y
-    # Instalar Node.js y utilidades
-    dnf install -y nodejs npm git unzip
-    
-    # Preparar el directorio para el Hito 3
+    dnf install -y nodejs npm git
+
+    # Crear directorio y entrar
     mkdir -p /home/ec2-user/app
-    chown -R ec2-user:ec2-user /home/ec2-user/app
+    cd /home/ec2-user/app
+
+    # Clonar tu repositorio (Cambia TU_USUARIO y TU_REPO)
+    git clone https://github.com/rafael1199v/legacy-billing-test.git .
+
+    # Instalar dependencias de Node
+    npm install
+
+    # Arrancar la aplicación en segundo plano
+    nohup node app.js > /home/ec2-user/app/server.log 2>&1 &
   EOF
 }

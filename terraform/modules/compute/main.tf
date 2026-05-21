@@ -5,6 +5,8 @@ resource "aws_instance" "app_server" {
   iam_instance_profile   = var.iam_instance_profile
   user_data              = var.user_data
 
+  user_data_replace_on_change = true
+
   tags = {
     Name = "Servidor-Legacy-Billing"
   }

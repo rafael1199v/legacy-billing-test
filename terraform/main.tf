@@ -28,5 +28,7 @@ module "compute" {
 
     # Arrancar la aplicación en segundo plano
     nohup node app.js > /home/ec2-user/app/server.log 2>&1 &
+
+    # Comentario dummy para forzar la recreacion en Terraform
   EOF
 }
